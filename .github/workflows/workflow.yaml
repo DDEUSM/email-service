@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Run Postgres Image
-        run: docker run --name my_postgres -e POSTGRES_PASSWORD=1234 -p 5431:5432 -d postgres
+        run: docker run --name my_postgres -e POSTGRES_PASSWORD=1234 -p 5432:5432 -d postgres
       - name: Using Node.js
         uses: actions/setup-node@v2
         with: 
