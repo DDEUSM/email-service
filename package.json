@@ -1,7 +1,9 @@
 {
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc",
+    "start": "node ./dist/src/index.js"
   },
   "dependencies": {
     "@types/node": "^20.11.20",
