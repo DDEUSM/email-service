@@ -8,9 +8,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Run docker compose
-        run: docker compose up -d
-      - name: Run all tests
-        run: docker 
+      - name: Run docker compose && create database && tests
+        run: bash run.sh
       
 
