@@ -8,12 +8,12 @@ export class ExpressHttpServer implements IHttpServer
 {
     private httpServer: any
 
-    constructor(){
+    constructor (){
         this.httpServer = express()
         this.httpServer.use(express.json())        
     }
 
-    add(httpMethod: httpMethodTypes, uri: string, middleware: Function, controller: Function)
+    add (httpMethod: httpMethodTypes, uri: string, middleware: Function, controller: Function)
     {
         const params = [uri, middleware].filter(param => param)
         this.httpServer[httpMethod](...params, async (req: Request, res: Response, next: NextFunction) => {
@@ -30,8 +30,8 @@ export class ExpressHttpServer implements IHttpServer
         })             
     }
 
-    listen(port: number)
+    listen (host: string, port: number)
     {
-        this.httpServer.listen(port, () => console.log(`Server running on http://${host}:${port}`))
+        this.httpServer.listen(host, port, () => console.log(`Server running on http://${host}:${port}`))
     }
 }
