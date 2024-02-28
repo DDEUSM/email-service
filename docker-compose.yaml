@@ -4,7 +4,7 @@ services:
       
   mypostgres:
     image: postgres:16-alpine
-    container_name: mypostgres
+    container_name: mypostgres    
     ports:
       - 5432:5432
     volumes:
@@ -25,7 +25,7 @@ services:
     environment:
       PORT: 4331
       HOST: "0.0.0.0"
-      DATABASE_URL: mypostgres
+      DATABASE_URL: "postgresql://postgres:1234@mypostgres:5432/emailservice"
       MAIL_HOST: sandbox.smtp.mailtrap.io 
       MAIL_PORT: 2525
       MAIL_USERNAME: 935d0e69c95e45
@@ -34,7 +34,6 @@ services:
       - mypostgres
     depends_on:
       - mypostgres
-
 
 volumes:
   nodemodules: {}
