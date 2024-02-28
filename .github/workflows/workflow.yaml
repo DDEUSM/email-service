@@ -9,11 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: setup docker compose
-        uses: docker/compose-action@v2
-        with: 
-          compose-file: docker-compose.yml
-      - name: wait for services
-        run: docker-compose ps
+        run: docker compose up
           
       
 
