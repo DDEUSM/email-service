@@ -19,4 +19,4 @@ const emailRoutes = new EmailRoutes(httpServer, emailUseCases)
 
 emailRoutes.initRoutes()
 
-httpServer.listen(host, port)
+httpServer.listen("0.0.0.0", port)
