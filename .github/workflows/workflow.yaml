@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
       - name: setup docker compose
         run: docker-compose up -d --built
@@ -17,7 +17,7 @@ jobs:
         run: docker-compose exec -T nodejs ls -l 
         
       - name: wait for services
-        run: docker-compose exec -T nodejs npm start
+        run: docker-compose exec -T nodejs npm run start:docker
         
       - name: run integration test
         run: docker-compose exec -T nodejs npm run test
