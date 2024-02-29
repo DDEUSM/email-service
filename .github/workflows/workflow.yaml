@@ -14,10 +14,10 @@ jobs:
         run: docker-compose up -d --build
         
       - name: wait for services
-        run: docker-compose exec nodejs npm start
+        run: docker-compose exec -T nodejs npm start
         
       - name: run integration test
-        run: docker-compose exec nodejs npm run test
+        run: docker-compose exec -T nodejs npm run test
         
       - name: Tear down Docker containers
         run: docker-compose down
