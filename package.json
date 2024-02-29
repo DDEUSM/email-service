@@ -4,7 +4,7 @@
     "test": "jest",
     "build": "tsc",
     "start": "node ./dist/src/index.js",
-    "start:docker": "npm run build"
+    "start:docker": "npm run build && npm start"
   },
   "dependencies": {
     "@types/node": "^20.11.20",
