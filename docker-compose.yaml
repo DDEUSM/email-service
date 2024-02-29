@@ -19,7 +19,6 @@ services:
   nodejs:
     build: .
     container_name: nodejs    
-    command: sh -c "npm run build && npm start && npm run test"
     ports:
       - "4331:4331"
     volumes: 
