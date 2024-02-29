@@ -16,9 +16,6 @@ jobs:
       - name: display folders
         run: docker-compose exec -T nodejs ls -l 
         
-      - name: wait for services
-        run: docker-compose exec -T nodejs npm run start:docker
-        
       - name: run integration test
         run: docker-compose exec -T nodejs npm run test
         
