@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v3
         
       - name: setup docker compose
-        run: docker-compose up -d
+        run: docker-compose up -d --built
         
       - name: display folders
         run: docker-compose exec -T nodejs ls -l 
