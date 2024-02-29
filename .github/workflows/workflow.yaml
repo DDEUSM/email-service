@@ -13,6 +13,9 @@ jobs:
       - name: setup docker compose
         run: docker-compose up -d
         
+      - name: display folders
+        run: docker-compose exec -T nodejs ls -l 
+        
       - name: wait for services
         run: docker-compose exec -T nodejs npm start
         
