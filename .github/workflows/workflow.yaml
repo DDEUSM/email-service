@@ -7,17 +7,7 @@ jobs:
     runs-on: ubuntu-latest 
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Run Postgres Image
-        run: docker run --name my_postgres -e POSTGRES_PASSWORD=1234 -p 5431:5432 -d postgres
-      - name: Using Node.js
-        uses: actions/setup-node@v2
-        with: 
-          node-version: 20.x      
-      - name: run install, build and test
-        run: |
-          npm install
-          npm run build
-          npm run start
-          npm run test
+      - uses: actions/checkout@v4
+      - name: Run shell script
+        run: bash -c "./start.sh"
 
