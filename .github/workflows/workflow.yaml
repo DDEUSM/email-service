@@ -9,5 +9,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: run shell script
-        run: sh -c "start.sh"
+        run: sh -c "./start.sh"
 
