@@ -1,37 +1,43 @@
 version: "3"
 
-services:
-      
+networks:
+  docker-email-net:
+    driver: bridge
+
+services:      
   mypostgres:
     image: postgres:16-alpine
     container_name: mypostgres
+    command: "postgres"
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - /tmp/database:/var/lib/postgresql/data
     environment:   
       POSTGRES_USER: postgres   
       POSTGRES_PASSWORD: 1234
+    networks:
+    - docker-email-net
 
   nodejs:
     build: .
     container_name: nodejs    
-    command: npm run start:docker
+    command: "npm run start:docker"
     ports:
-      - 4331:4331
+      - "4331:4331"
     volumes: 
       - ./:/usr/app
       - nodemodules:/usr/app/node_modules
     environment:
       PORT: 4331
-      HOST: "0.0.0.0"
-      DATABASE_URL: mypostgres
+      HOST: nodejs
+      DATABASE_URL: "postgresql://postgres:1234@mypostgres:5432/emailservice"
       MAIL_HOST: sandbox.smtp.mailtrap.io 
       MAIL_PORT: 2525
       MAIL_USERNAME: 935d0e69c95e45
       MAIL_PASSWORD: ba0f07267fab5f
-    links:
-      - mypostgres
+    networks:
+      - docker-email-net
     depends_on:
       - mypostgres
 

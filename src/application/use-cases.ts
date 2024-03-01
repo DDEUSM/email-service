@@ -11,12 +11,13 @@ export class EmailUseCases
     async sendEmail(email: Email): Promise<void>
     {
         await this.emailRepository.save(email)
-
+        /*
         await this.smtpTransport.sendMail({
             from: `Email test <${email.emailFrom}>`,
             to: `< ${email.emailTo}>`,
             subject: email.subject,
             html: email.text
         })
+        */
     }
 }
