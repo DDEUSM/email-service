@@ -9,13 +9,13 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: run docker compose
-        run: docker-compose up -d
+        run: docker-compose up --build -d
         
       - name: check all containers
         run: docker-compose ps
 
       - name: check nodejs log
-        run: docker-compose exec -T nodejs ls -la
+        run: docker-compose exec -T nodejs sh -c "ls -la && pwd"
     
 
 
