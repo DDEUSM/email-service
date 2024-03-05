@@ -1,5 +1,4 @@
 name: Continuous Integration
-
 on: pull_request
 
 jobs: 
@@ -8,6 +7,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: run shell script
-        run: sh -c "./start.sh"
+      - name: run docker compose
+        run: docker-compose up -d
 
