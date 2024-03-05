@@ -3,7 +3,7 @@ import { EmailDto } from './infrastructure/dtos/email-dto'
 
 describe("test 1", () => 
 {
-    const endpoint = `http://nodejs:4331/send-email`
+    const endpoint = `http://localhpst:4331/send-email`
     test("test 1.1", async () => 
     {
         const email = new EmailDto (
