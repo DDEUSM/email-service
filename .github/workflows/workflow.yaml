@@ -17,6 +17,7 @@ jobs:
       - name: check nodejs log
         run: docker container logs nodejs
       
-      - name: run all tests      
-        run: docker-compose exec -T nodejs npm run test
+      - name: start nodejs     
+        run: docker-compose exec -T nodejs sh -c "npm start && npm run test"
+
 
