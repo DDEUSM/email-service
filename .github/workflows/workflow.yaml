@@ -15,9 +15,7 @@ jobs:
         run: docker-compose ps
 
       - name: check nodejs log
-        run: docker container logs nodejs
-      
-      - name: start nodejs     
-        run: docker-compose exec -T nodejs sh -c "npm run start:docker"
+        run: docker-compose exec -T nodejs ls -la
+    
 
 
