@@ -11,6 +11,9 @@ jobs:
       - name: run docker compose
         run: docker-compose up -d
         
-      - name: run all tests
+      - name: check all containers
+        run: docker-compose ps
+      
+      - name: run all tests      
         run: docker-compose exec -T nodejs npm run test
 
