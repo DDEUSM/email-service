@@ -1,14 +1,48 @@
 name: Continuous Integration
-
 on: pull_request
 
 jobs: 
   continuous-integration: 
     runs-on: ubuntu-latest 
 
+    services: 
+      postgres:
+        image: postgres
+        env: 
+          POSTGRES_HOST: localhost
+          POSTGRES_PASSWORD: 1234
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Run docker compose && create database && tests
-        run: bash run.sh
+      - name: Check out repository code
+      - uses: actions/checkout@v4
+
+      - name: install dependencies
+        run: npm ci
+
+      - name: build nodejs
+        run: npm run build
+
+      - name: start nodejs
+        run: npm start
       
+      - name: run integration tests
+        run: npm run test
+    
+      env:          
+          PORT: 4331
+          HOST: localhost          
+          DATABASE_URL: "postgresql://postgres:1234@localhost:5432/emailservice"
+          MAIL_HOST: sandbox.smtp.mailtrap.io 
+          MAIL_PORT: 2525
+          MAIL_USERNAME: 935d0e69c95e45
+          MAIL_PASSWORD: ba0f07267fab5f
+          
+
 
