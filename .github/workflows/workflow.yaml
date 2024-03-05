@@ -34,16 +34,15 @@ jobs:
         run: npm start
       
       - name: run integration tests
-        run: npm run test
-    
-      env:          
-        PORT: 4331
-        HOST: localhost          
-        DATABASE_URL: "postgresql://postgres:1234@localhost:5432/emailservice"
-        MAIL_HOST: sandbox.smtp.mailtrap.io 
-        MAIL_PORT: 2525
-        MAIL_USERNAME: 935d0e69c95e45
-        MAIL_PASSWORD: ba0f07267fab5f
+        run: npm run test    
+        env:          
+          PORT: 4331
+          HOST: localhost          
+          DATABASE_URL: "postgresql://postgres:1234@localhost:5432/emailservice"
+          MAIL_HOST: sandbox.smtp.mailtrap.io 
+          MAIL_PORT: 2525
+          MAIL_USERNAME: 935d0e69c95e45
+          MAIL_PASSWORD: ba0f07267fab5f
           
 
 
