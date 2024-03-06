@@ -32,6 +32,6 @@ export class ExpressHttpServer implements IHttpServer
 
     listen (host: string, port: number)
     {
-        this.httpServer.listen(4331, () => console.log(`Server running on http://${host}:${port}`))
+        this.httpServer.listen(port, () => console.log(`Server running on http://${host}:${port}`))
     }
 }
