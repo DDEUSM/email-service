@@ -41,7 +41,10 @@ jobs:
         run: npm ci
         
       - name: build
-        run: npm run build                    
+        run: npm run build             
+
+      - name: install pm2
+        run: npm i pm2 -g       
           
       - name: start node.js server on background
         run: pm2 start ./dist/src/index.js
