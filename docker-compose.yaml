@@ -3,8 +3,9 @@ version: "3"
 services:      
   mypostgres:
     image: postgres:16-alpine
-    container_name: mypostgres
-    command: "postgres"
+
+    container_name: mypostgres    
+
     ports:
       - "5432:5432"
     volumes:
@@ -33,7 +34,6 @@ services:
       MAIL_PASSWORD: ba0f07267fab5f
     depends_on:
       - mypostgres
-
 
 volumes:
   nodemodules: {}
