@@ -41,14 +41,10 @@ jobs:
         run: npm ci
         
       - name: build
-        run: npm run build
-      
-      - name: Start nodejs
-        # Runs a script that creates a PostgreSQL table, populates
-        # the table with data, and then retrieves the data
-        run: npm start
-        # Environment variables used by the `client.js` script to create
-        # a new PostgreSQL table.
+        run: npm run build                    
+          
+      - name: start node.js server on background
+        run: pm2 start ./dist/src/index.js
         env:
           # The hostname used to communicate with the PostgreSQL service container
           PORT: 4331
@@ -58,10 +54,21 @@ jobs:
           MAIL_PORT: 2525
           MAIL_USERNAME: 935d0e69c95e45
           MAIL_PASSWORD: ba0f07267fab5f
-          
+      
       - name: Run all tests
-        run: |
-          npm start & 
-          sleep 2
-          npm run test
-          kill -9 `lsof -i:4331 -t`
+        run: npm run test
+        env:
+          # The hostname used to communicate with the PostgreSQL service container
+          PORT: 4331
+          HOST: localhost          
+          DATABASE_URL: "postgresql://postgres:1234@localhost:5432/emailservice"
+          MAIL_HOST: sandbox.smtp.mailtrap.io 
+          MAIL_PORT: 2525
+          MAIL_USERNAME: 935d0e69c95e45
+          MAIL_PASSWORD: ba0f07267fab5f
+      
+      - name: Stop node server
+        run: pm2 stop index
+      
+      - name: kill pm2 proccess
+        run: pm2 kill
