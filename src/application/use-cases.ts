@@ -23,7 +23,7 @@ export class EmailUseCases
             subject: email.subject,
             html: `<h1>${email.text}</h1>`
         })
-        */
+        
     }
 
     async sendRegistrationMail(user: User): Promise<User>
