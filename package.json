@@ -8,8 +8,10 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "start": "node ./dist/src/index.js",
+
     "start:watch": "npx nodemon ./dist/src/index.js",
     "start:docker": "npm run build && npm start"
+
   },
   "dependencies": {
     "@types/node": "^20.11.20",

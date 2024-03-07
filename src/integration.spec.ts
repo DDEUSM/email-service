@@ -4,8 +4,10 @@ import { UserDto } from './infrastructure/dtos/user-dto'
 
 describe("test 1", () => 
 {
+
     const endpoint = `http://localhost:4331`
     test("test 1.1", async () => {
+
 
         const email = new EmailDto (
             crypto.randomUUID(),
@@ -14,7 +16,6 @@ describe("test 1", () =>
             "Teste 1",
             "Testando serviço de envio de emails"            
         )
-
         const headers = {
             'Content-Type': 'application/json'
         }
@@ -22,6 +23,7 @@ describe("test 1", () =>
             method: 'POST',
             body: JSON.stringify(email),
             headers
+
         }).then(response => response.json())
         .then(data => { 
             console.log(data)
@@ -53,5 +55,6 @@ describe("test 1", () =>
         })
 
         expect(response).toBeTruthy()
+
     })
 })

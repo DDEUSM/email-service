@@ -15,6 +15,7 @@ export class EmailUseCases
     async sendEmail(email: Email): Promise<void>
     {
         await this.emailRepository.save(email)
+
         await smtpTransport.sendMail({
             date: email.sendDateEmail,
             from: `Email test < ${email.emailFrom} >`,
@@ -22,6 +23,7 @@ export class EmailUseCases
             subject: email.subject,
             html: `<h1>${email.text}</h1>`
         })
+        */
     }
 
     async sendRegistrationMail(user: User): Promise<User>
