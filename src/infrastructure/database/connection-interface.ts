@@ -1,6 +1,10 @@
-export interface IConnection 
-{
-    query(statement: string, values: any): Promise<any>
-    one(statement: string, values: any): Promise<any>
-    close(): Promise<void>
+export abstract class ConnectionDatabase
+{    
+    constructor (
+        public connection: any
+    ){}
+
+    abstract query(statement: string, values: any): Promise<any>
+    abstract one(statement: string, values: any): Promise<any>
+    abstract close(): Promise<void>
 }

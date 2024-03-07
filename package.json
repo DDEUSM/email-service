@@ -1,17 +1,27 @@
 {
   "scripts": {
-    "dev": "tsx watch ./src/index.ts",
+    "dev": "npm-run-all -p dev:*",
+    "dev:server": "tsx watch ./src/index.ts",
+    "dev:queue": "tsx watch ./src/init-queue.ts",
+    "docker:watch": "npx concurrently \"npm run build:watch\" \"npm run start:watch\"",
     "test": "jest",
     "build": "tsc",
+    "build:watch": "tsc --watch",
     "start": "node ./dist/src/index.js",
-    "start:docker": "npm run build && npm start && npm run test"
+
+    "start:watch": "npx nodemon ./dist/src/index.js",
+    "start:docker": "npm run build && npm start"
+
   },
   "dependencies": {
     "@types/node": "^20.11.20",
+    "bull": "^4.12.2",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "nodemailer": "^6.9.10",
-    "pg-promise": "^11.5.4",    
+    "nodemon": "^3.1.0",
+    "npm-run-all": "^4.1.5",
+    "pg-promise": "^11.5.4",
     "tsx": "^4.7.1"
   },
   "devDependencies": {

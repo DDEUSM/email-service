@@ -1,4 +1,4 @@
 export enum StatusEmail {
-    sent,
-    error
+    sent = "sent",
+    error = "error"
 }

@@ -1,7 +1,22 @@
 version: "3"
 
-services:      
-  mypostgres:
+
+networks:
+  my-docker-net:
+    driver: bridge
+
+services:
+
+  my-redis:
+    image: redis:alpine
+    container_name: my-redis
+    ports:
+      - 6379:6379
+    networks:
+      - my-docker-net
+
+  my-postgres:
+
     image: postgres:16-alpine
 
     container_name: mypostgres    
@@ -14,7 +29,10 @@ services:
       POSTGRES_HOST: localhost
       POSTGRES_USER: postgres   
       POSTGRES_PASSWORD: 1234
-      
+
+    networks: 
+      = my-docker-net
+
   nodejs:
     build: .
     container_name: nodejs    
@@ -32,8 +50,15 @@ services:
       MAIL_PORT: 2525
       MAIL_USERNAME: 935d0e69c95e45
       MAIL_PASSWORD: ba0f07267fab5f
+
+    links:
+      - my-postgres
+
     depends_on:
-      - mypostgres
+      - my-postgres
+      - my-redis
+    networks: 
+      = my-docker-net
 
 volumes:
   nodemodules: {}

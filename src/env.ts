@@ -11,7 +11,8 @@ export const smtpParameters = {
 }
 
 export const port = Number(process.env.PORT) || 4331
-
 export const host = process.env.HOST
-
 export const databaseUrl = process.env.DATABASE_URL
+
+export const REDIS_HOST = process.env.REDIS_HOST
+export const REDIS_PORT = process.env.REDIS_PORT
