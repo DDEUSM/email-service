@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals'
 import { EmailDto } from './infrastructure/dtos/email-dto'
-import { UserDto } from './infrastructure/dtos/user-dto.ts'
+import { UserDto } from './infrastructure/dtos/user-dto'
 
 describe("test 1", () => 
 {
