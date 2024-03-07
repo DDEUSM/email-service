@@ -1,9 +1,10 @@
 import { describe, expect, test } from '@jest/globals'
 import { EmailDto } from './infrastructure/dtos/email-dto'
+import { UserDto } from './infrastructure/dtos/user-dto.ts'
 
 describe("test 1", () => 
 {
-    const endpoint = `http://localhost:4331/send-email`
+    const endpoint = `http://localhost:4331`
     test("test 1.1", async () => {
 
         const email = new EmailDto (
@@ -17,10 +18,40 @@ describe("test 1", () =>
         const headers = {
             'Content-Type': 'application/json'
         }
-        const response = await fetch(endpoint, {
+        const response = await fetch(endpoint+"/send-email", {
             method: 'POST',
             body: JSON.stringify(email),
             headers
+        }).then(response => response.json())
+        .then(data => { 
+            console.log(data)
+            return data 
         })
+
+        expect(response).toBeTruthy()
+    })
+
+    test("test 1.2", async () => {
+
+        const user = new UserDto (
+           "David de Deus",
+           "david@gmail.com",
+           "12345"         
+        )
+
+        const headers = {
+            'Content-Type': 'application/json'
+        }
+        const response = await fetch(endpoint+"/send-register-email", {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers
+        }).then(response => response.json())
+        .then(data => { 
+            console.log(data)
+            return data 
+        })
+
+        expect(response).toBeTruthy()
     })
 })

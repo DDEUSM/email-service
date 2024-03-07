@@ -1,15 +1,13 @@
 import { IHttpServer } from "./http-server-interface"
 import express, { Request, Response, NextFunction } from 'express'
 import { httpMethodTypes } from "./types"
-import { host } from "../../../env"
 import { HttpResponse } from "./http-response"
 
 export class ExpressHttpServer implements IHttpServer
 {
-    private httpServer: any
 
-    constructor (){
-        this.httpServer = express()
+    constructor (private httpServer: any) 
+    {        
         this.httpServer.use(express.json())        
     }
 
@@ -18,8 +16,7 @@ export class ExpressHttpServer implements IHttpServer
         const params = [uri, middleware].filter(param => param)
         this.httpServer[httpMethod](...params, async (req: Request, res: Response, next: NextFunction) => {
             try 
-            {
-                console.log("foi")
+            {                
                 const response: HttpResponse = await controller(req)
                 res.status(response.statusCode).json({ message: response.message })    
             } 
@@ -28,6 +25,11 @@ export class ExpressHttpServer implements IHttpServer
                 next(error)
             }            
         })             
+    }
+
+    middleware (middleware: Function): void
+    {
+        this.httpServer.use(middleware)
     }
 
     listen (port: number, host: string)
