@@ -1,33 +1,20 @@
-
 import { ExpressHttpServer } from './infrastructure/server/http-server'
-import { EmailRoutes } from './infrastructure/routes/email-routes'
-import { EmailUseCases } from './application/use-cases'
-import { EmailRepository } from './infrastructure/repositories/email-respository'
-import { databaseUrl, host, port } from './env'
-import { PostgresAdapter } from './infrastructure/database/postgresql-adapter'
-import pgPromise from 'pg-promise'
-import { jobQueue } from './init-queue'
-import { UserRepository } from './infrastructure/repositories/user-repository'
+import { host, port } from './env'
 import express from "express"
 import { ErrorHandler } from './infrastructure/middleware/error-handler'
+import { contextUseCases, emailUseCases } from './init-connections'
+import { ProjectAuthHandler } from './infrastructure/middleware/auth-handler'
+import { ProjectRepository } from './infrastructure/repositories/project-repository'
+import { ContextRoutes } from './infrastructure/routes/internal-routes/email-context-routes/context-routes'
 
 const httpServer = new ExpressHttpServer(express())
 
-const postgresConnection = new PostgresAdapter(pgPromise()(databaseUrl))
+const contextRoutes = new ContextRoutes(httpServer, contextUseCases)
 
-const emailRepository = new EmailRepository(postgresConnection)
+contextRoutes.initRoutes()
 
-const userRepository = new UserRepository(postgresConnection)
-
-const emailUseCases = new EmailUseCases (
-    emailRepository, 
-    userRepository,
-    jobQueue
-)
-
-const emailRoutes = new EmailRoutes(httpServer, emailUseCases)
-
-emailRoutes.initRoutes()
+const projectRepository = new ProjectRepository()
+ProjectAuthHandler.config(projectRepository)
 
 httpServer.middleware(ErrorHandler.handler)
 

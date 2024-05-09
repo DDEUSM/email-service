@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals'
-import { EmailDto } from './infrastructure/dtos/email-dto'
+import { EmailDtoIntern } from './infrastructure/dtos/email-dto'
 import { UserDto } from './infrastructure/dtos/user-dto'
 
 describe("test 1", () => 
@@ -8,8 +8,7 @@ describe("test 1", () =>
     const endpoint = `http://localhost:4331`
     test("test 1.1", async () => {
 
-
-        const email = new EmailDto (
+        const email = new EmailDtoIntern (
             crypto.randomUUID(),
             "dedeus@live.com",
             "no-reply@live.com",

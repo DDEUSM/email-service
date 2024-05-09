@@ -1,5 +1,5 @@
-export abstract class Job
+export interface IJob
 {
     key: string
-    abstract handle({ data }: any): Promise<any>
+    handle({ data }: any): Promise<any>
 }

@@ -1,7 +1,18 @@
 export class HttpResponse 
 {
+    statusCode: number
+    message?: string
+    data?: any
+
     constructor (
-        public statusCode: number,
-        public message: string
-    ){}
+        httpResponseData: HttpResponseType
+    ){
+        Object.assign(this, httpResponseData)
+    }
+}
+
+type HttpResponseType = {
+    statusCode: number
+    message?: string
+    data?: any
 }

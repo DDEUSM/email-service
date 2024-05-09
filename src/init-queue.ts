@@ -1,10 +1,19 @@
-import { RegistrationMailJob } from "./application/background-jobs/registration-mail";
+import * as jobs from "./application/background-jobs";
 import { JobQueue } from "./infrastructure/queue";
 import { REDIS_HOST, REDIS_PORT } from "./env";
 
-const registerMailJob = new RegistrationMailJob()
+const url = `redis://${REDIS_HOST}:${REDIS_PORT}`
 
-export const jobQueue = new JobQueue(registerMailJob, `redis://${REDIS_HOST}:${REDIS_PORT}`)
-console.log(REDIS_HOST, REDIS_PORT)
+export type QueueMapType = {
+    [ queueKey: string ]: JobQueue
+}
 
-jobQueue.processJob()
+const Queues: QueueMapType = Object.values(jobs).reduce((queueMap: QueueMapType, Job) => 
+{
+    const newJob = new Job()
+    queueMap[newJob.key] = new JobQueue(newJob, url)
+    queueMap[newJob.key].processJob()
+    return queueMap
+}, {})
+
+export { Queues }

@@ -5,6 +5,7 @@ export class ErrorHandler
 {
     public static handler(error: any, req: Request, res: Response, next: NextFunction)
     {
+        console.log(error)
         return error instanceof ApiError?
             res.status(error.statusCode).json({ message: error.message })
         :

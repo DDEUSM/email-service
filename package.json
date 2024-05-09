@@ -1,17 +1,15 @@
 {
   "scripts": {
     "dev": "npm-run-all -p dev:*",
-    "dev:server": "tsx watch ./src/index.ts",
     "dev:queue": "tsx watch ./src/init-queue.ts",
+    "dev:server": "tsx watch ./src/index.ts",
     "docker:watch": "npx concurrently \"npm run build:watch\" \"npm run start:watch\"",
-    "test": "jest",
+    "test": "jest --forceExit --detectOpenHandles  --watchAll --maxWorkers=1",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "start": "node ./dist/src/index.js",
-
-    "start:watch": "npx nodemon ./dist/src/index.js",
-    "start:docker": "npm run build && npm start"
-
+    "start:server": "node ./dist/src/index.js",
+    "start:docker": "npm run build && npm-run-all -p start:*",
+    "start:queue": "node ./dist/src/init-queue.js"
   },
   "dependencies": {
     "@types/node": "^20.11.20",
@@ -26,9 +24,11 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
+    "@types/bull": "^4.10.0",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
     "@types/nodemailer": "^6.4.14",
+    "axios": "^1.6.8",
     "jest": "^29.7.0",
     "ts-jest": "^29.1.2",
     "typescript": "^5.3.3"

@@ -1,12 +1,10 @@
 version: "3"
 
-
 networks:
   my-docker-net:
     driver: bridge
 
 services:
-
   my-redis:
     image: redis:alpine
     container_name: my-redis
@@ -16,50 +14,43 @@ services:
       - my-docker-net
 
   my-postgres:
-
     image: postgres:16-alpine
-
-    container_name: mypostgres    
-
+    container_name: my-postgres    
     ports:
       - "5432:5432"
     volumes:
       - /tmp/database:/var/lib/postgresql/data
     environment:   
-      POSTGRES_HOST: localhost
       POSTGRES_USER: postgres   
       POSTGRES_PASSWORD: 1234
-
     networks: 
-      = my-docker-net
+      - my-docker-net
 
   nodejs:
-    build: .
-    container_name: nodejs    
-    command: "npm run build"
+    build: ./
+    container_name: nodejs  
+    command: npm run start:docker
     ports:
       - "4331:4331"
     volumes: 
       - ./:/usr/app
-      - nodemodules:/usr/app/node_modules
     environment:
       PORT: 4331
       HOST: localhost
-      DATABASE_URL: "postgresql://postgres:1234@mypostgres:5432/emailservice"
+      DATABASE_URL: "postgresql://postgres:1234@my-postgres:5432/emailservice"
       MAIL_HOST: sandbox.smtp.mailtrap.io 
       MAIL_PORT: 2525
-      MAIL_USERNAME: 935d0e69c95e45
-      MAIL_PASSWORD: ba0f07267fab5f
-
+      MAIL_USERNAME: 2d6d07d2ff7fd4
+      MAIL_PASSWORD: 509ec996c6891a
+      REDIS_HOST: my-redis
+      REDIS_PORT: 6379
     links:
       - my-postgres
-
+      - my-redis
     depends_on:
       - my-postgres
       - my-redis
     networks: 
-      = my-docker-net
+      - my-docker-net
 
-volumes:
-  nodemodules: {}
 

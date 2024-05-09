@@ -1,4 +1,4 @@
-import { EmailDto } from "../../infrastructure/dtos/email-dto";
+import { EmailDtoIntern } from "../../infrastructure/dtos/email-dto";
 import { StatusEmail } from "../enums/email-enum";
 
 export class Email
@@ -9,12 +9,12 @@ export class Email
         public readonly emailFrom: string,
         public readonly emailTo: string,
         public readonly subject: string,
-        public readonly text: string,
+        public readonly html: string,
         public readonly sendDateEmail: Date,
         public readonly emailStatus: StatusEmail
     ){}
 
-    static createEmail(emailDto: EmailDto)
+    static createEmail(emailDto: EmailDtoIntern)
     {
         return new Email(
             crypto.randomUUID(),
@@ -22,7 +22,7 @@ export class Email
             emailDto.emailFrom,
             emailDto.emailTo,
             emailDto.subject,
-            emailDto.text,
+            emailDto.html,
             new Date(),
             StatusEmail.sent
         )

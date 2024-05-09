@@ -1,17 +1,15 @@
-import { Job } from "./Job"
+import { IJob } from "./Job"
 import smtpTransport from "../../infrastructure/server/mail-server"
-export class RegistrationMailJob extends Job
+
+export default class RegistrationMailJob implements IJob
 {
     key = "RegistrationMail"
- 
-    constructor()
-    {
-        super()        
-    }
    
     async handle({ data })
     {                        
         const { user } = data
+        console.log("handle User")
+        console.log(user)
         await smtpTransport.sendMail({
             from: `Email test < no-reply@test.com >`,
             to: `${user.name} < ${user.email} >`,

@@ -1,13 +1,13 @@
 import Queue from "bull"
-import { Job } from "../../application/background-jobs/Job"
+import { IJob } from "../../application/background-jobs/Job"
 
 export class JobQueue 
 {
     private jobQueue: Queue.Queue<any>
-    public jobProcess: Job
+    public jobProcess: IJob
 
     constructor (
-        jobProcess: Job,
+        jobProcess: IJob,
         databaseUrl: string
     ){
         this.jobProcess = jobProcess
