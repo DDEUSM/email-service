@@ -1,28 +1,32 @@
 import { randomUUID } from "crypto";
+import { Visibility } from "../enums/project-enum";
 
 export class Project 
 {
     private constructor (
         readonly id: string,
-        readonly apiKeyHash: string,
+        readonly apiKey: string,
         readonly clientHost: string,
         readonly ownerId: string,
-        readonly projectTitle: string
+        readonly title: string,
+        readonly visibility: Visibility
     ){}
 
     public static createProjectCredentials (
-        apiKeyHash: string, 
+        apiKey: string, 
         clientHost: string,
         ownerId: string,
-        projectTitle: string
+        title: string,
+        visibility: Visibility
     ): Project 
     {
         return new Project (
             randomUUID(),
-            apiKeyHash,
+            apiKey,
             clientHost,
             ownerId,
-            projectTitle
+            title,
+            visibility
         )
     }
 }

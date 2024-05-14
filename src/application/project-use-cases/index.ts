@@ -1,4 +1,5 @@
 import { Project } from "../../domain/entities/project";
+import { InProjectDto, OutProjectDto } from "../../infrastructure/dtos/project-dto";
 import { IProjectRepository } from "../../infrastructure/repositories/project-repository/project-repository-interface";
 
 export class ProjectUseCases 
@@ -6,30 +7,42 @@ export class ProjectUseCases
     constructor (
         private projectRepository: IProjectRepository
     ){}
+
+    async save (project: InProjectDto)
+    {
+        const newProject = Project.createProjectCredentials (
+            project.apiKey,
+            project.clientHost,
+            project.ownerId,
+            project.title,
+            project.visibility
+        )
+        await this.projectRepository.save(newProject)
+    }
+
+    async find (projectQuery: any, offset: number, limit: number): Promise<OutProjectDto[]>
+    {
+        return await this.projectRepository.find(projectQuery, offset, limit)
+    }
     
-
-    create (projectData: any)
+    async findByApiKey (apiKey: string, clientHost: string): Promise<OutProjectDto>
     {
+        return await this.projectRepository.findByApiKey(apiKey, clientHost)
     }
 
-    get ()
+    async findById (projectId: string): Promise<OutProjectDto>
     {
-
+        return await this.projectRepository.findById(projectId)
     }
 
-    async getById (apiKey: string, clientHost: string): Promise<Project>
+
+    async update (projectId: string, projectUpdate: any): Promise<void>
     {
-        return this.projectRepository.findById(apiKey, clientHost)
+        await this.projectRepository.update(projectId, projectUpdate)
     }
 
-    update ()
+    async delete (projectId: string): Promise<void>
     {
-
+        await this.projectRepository.delete(projectId)
     }
-
-    delete ()
-    {
-
-    }
-
 }
