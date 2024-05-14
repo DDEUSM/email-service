@@ -1,4 +1,4 @@
-export class EmailContextDtoIntern
+export class InEmailContextDto
 {
     constructor (
         public readonly projectId: string,
@@ -8,7 +8,7 @@ export class EmailContextDtoIntern
     ){}
 }
 
-export class EmailContextDtoExtern
+export class OutEmailContextDto
 {
     constructor (
         public readonly id: string,
