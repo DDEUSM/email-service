@@ -1,31 +1,47 @@
 import { EmailTemplate } from "../../domain/entities/email-template";
+import { EmailTemplateSchema } from "../schemas/email-template";
+import { Adapter } from "./adapter";
 
-export class EmailTemplateAdapter
+type EmailTemplateUpdateObject = {
+    projectId: string
+    title: string
+    subject: string
+    html: string
+}
+
+export class EmailTemplateAdapter extends Adapter
 {
-    public static toDatabase(emailTemplate: EmailTemplate)
+    public static entityToDatabase(emailTemplate: EmailTemplate): EmailTemplateSchema
     {
         return {
             id: emailTemplate.id,
-            owner_id: emailTemplate.ownerId,
+            project_id: emailTemplate.projectId,
             title: emailTemplate.title,
             subject: emailTemplate.subject,
             html: emailTemplate.html,
+        } as EmailTemplateSchema
+    }
+
+    public static updateBodyToDatabase(emailTemplateUpdateObject: EmailTemplateUpdateObject)
+    {
+        const updateObject: EmailTemplateUpdateObject = {
+            projectId: emailTemplateUpdateObject.projectId,
+            title: emailTemplateUpdateObject.title,
+            subject: emailTemplateUpdateObject.subject,
+            html: emailTemplateUpdateObject.html
         }
+        return EmailTemplateAdapter.clearObject(updateObject)
     }
 
     public static queryToDatabase(emailTemplateQuery: any)
     {   
         let object = {
-            owner_id: emailTemplateQuery.ownerId,
+            project_id: emailTemplateQuery.projectId,
             title: emailTemplateQuery.title,
             subject: emailTemplateQuery.subject,
             html: emailTemplateQuery.html,
             created_at: emailTemplateQuery.createdAt
         }
-        return Object.keys(object).reduce((finalQueryObj: any, currentKey: any, index: number) => 
-        {
-            object[currentKey]? finalQueryObj[currentKey] = object[currentKey] : null
-            return finalQueryObj 
-        }, {})
+        return EmailTemplateAdapter.clearObject(object)
     }
 }

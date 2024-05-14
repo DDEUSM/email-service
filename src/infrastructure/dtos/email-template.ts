@@ -1,7 +1,7 @@
-export class EmailTemplateDtoIntern
+export class InEmailTemplateDto
 {
     constructor (
-        public readonly ownerId: string,
+        public readonly projectId: string,
         public readonly title: string,
         public readonly subject: string,
         public readonly html: string,        
@@ -10,11 +10,11 @@ export class EmailTemplateDtoIntern
     }
 }
 
-export class EmailTemplateDtoExtern
+export class OutEmailTemplateDto
 {
     constructor (
         public readonly id: string,
-        public readonly ownerId: string,
+        public readonly projectId: string,
         public readonly title: string,
         public readonly subject: string,
         public readonly html: string,  
