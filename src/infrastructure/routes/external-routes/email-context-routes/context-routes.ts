@@ -15,8 +15,9 @@ export class ExternalServiceRoutes extends Routes
     {
         this.httpServer.add("post", "/call-email-context/:id", 
         ProjectAuthHandler.projectAuth,
-            async (req: any) => {
-                const response = await this.contextUseCase.callEmailContext (
+            async (req: any) => 
+            {
+                const response = await this.contextUseCase.call (
                     req.params.id, 
                     req.body.recipientData
                 )

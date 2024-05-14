@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto"
-import { EmailContextDtoIntern } from "../../infrastructure/dtos/context-dto"
+import { InEmailContextDto } from "../../infrastructure/dtos/context-dto"
 
 export class EmailContext 
 {
@@ -12,7 +12,7 @@ export class EmailContext
         readonly createdAt: number
     ){}
 
-    public static createContext(EmailcontextDtoIntern: EmailContextDtoIntern)
+    public static createContext(EmailcontextDtoIntern: InEmailContextDto)
     {
         if (!EmailcontextDtoIntern) return null
         return new EmailContext (

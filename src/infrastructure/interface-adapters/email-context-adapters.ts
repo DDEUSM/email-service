@@ -1,4 +1,6 @@
 import { EmailContext } from "../../domain/entities/email-context";
+import { EmailContextSchema } from "../schemas/email-context";
+import { Adapter } from "./adapter";
 
 type EmailContextUpdateObject = {
     title?: string
@@ -6,9 +8,9 @@ type EmailContextUpdateObject = {
     emailTemplateId?: string  
 }
 
-export class EmailContextAdapter
+export class EmailContextAdapter extends Adapter
 {
-    public static toDatabase(emailContext: EmailContext): any
+    public static entityToDatabase(emailContext: EmailContext): EmailContextSchema
     {
         return {
            id: emailContext.id,
@@ -19,16 +21,7 @@ export class EmailContextAdapter
         }
     }
 
-    private static clearObject(object: any)
-    {
-        return Object.keys(object).reduce((finalObject: any, key: any, index: number) => 
-        {
-            object[key] || typeof object[key] === 'number'? finalObject[key] = object[key] : null
-            return finalObject
-        }, {})
-    }
-
-    public static updateBody(emailContextUpdateObject: EmailContextUpdateObject): any
+    public static updateBodyToDatabase(emailContextUpdateObject: any): EmailContextUpdateObject
     {
         let updateObject: EmailContextUpdateObject = {
             title: emailContextUpdateObject.title,
@@ -38,16 +31,14 @@ export class EmailContextAdapter
        return EmailContextAdapter.clearObject(updateObject)
     }
 
-    public static adaptQueryStringToDb(emailContextQuery: {[key: string]: any}&{offset: number, itensLimit: number}): any
+    public static queryToDatabase(emailContextQuery: {[key: string]: any}): any
     {
         let object = {
             id: emailContextQuery.id,
             project_id: emailContextQuery.projectId,
             email_template_id: emailContextQuery.emailTemplateId,
             email_from: emailContextQuery.emailFrom,
-            title: emailContextQuery.title,
-            offset: emailContextQuery.offset,
-            limit: emailContextQuery.itensLimit
+            title: emailContextQuery.title
         }
         return EmailContextAdapter.clearObject(object)
     }

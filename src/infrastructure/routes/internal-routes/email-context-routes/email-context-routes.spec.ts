@@ -43,7 +43,7 @@ describe("email context routes test", () =>
 
         emailContextFinal = response.data[0]        
         expect(response.data[0].title).toBe(emailContext.title)
-        expect(response.data[0].project_id).toBe(emailContext.projectId)
+        expect(response.data[0].projectId).toBe(emailContext.projectId)
     })
 
     test("test #3 update email context", async () => 
@@ -87,7 +87,7 @@ describe("email context routes test", () =>
     ''
     test("test #6 Delete email context", async () => 
     {
-        const response = await fetch(
+        const response: any = await fetch(
             BASE_URL+"/email-context/"+emailContextFinal.id, 
             {
                 method: 'DELETE',
@@ -96,7 +96,21 @@ describe("email context routes test", () =>
                 }
             }).catch(error => console.log(error))
 
-        console.log(response)
+        expect(response.ok).toBeTruthy()
     })
+
+    test("test #7 Verify Email Context after was be deleted", async () => 
+        {
+            const response: any = await fetch(
+            BASE_URL+"/email-context/"+emailContextFinal.id, 
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'API_KEY b0b77de101e00?4d4e%8652%b6527fe4b0d9'
+                }
+            }).catch(error => console.log(error))
+
+            expect(response.ok).toBeFalsy()
+        })
 
 })
