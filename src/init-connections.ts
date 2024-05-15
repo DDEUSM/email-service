@@ -11,12 +11,14 @@ import { Queues } from "./init-queue"
 import { EmailTemplateUseCases } from "./application/email-template-use-cases"
 import { EmailContextUseCases } from "./application/email-context-use-cases"
 import { ProjectRepository } from "./infrastructure/repositories/project-repository"
+import { ProjectUseCases } from "./application/project-use-cases"
 
 const postgresConnection = new PostgresAdapter(pgPromise()(databaseUrl))
 
 const emailRepository = new EmailRepository(postgresConnection)
 export const emailTemplateRepository = new EmailTemplateRepository(postgresConnection)
-export const userRepository = new UserRepository(postgresConnection) 
+export const userRepository = new UserRepository(postgresConnection)
+export const projectRepository = new ProjectRepository(postgresConnection) 
 const contextRepository = new ContextRepository(postgresConnection)
 
 export const userUseCases = new UserUseCases(userRepository)
@@ -25,6 +27,11 @@ export const emailUseCases = new EmailUseCases (
     emailRepository,
     Queues
 )
+
+export const projectUseCases = new ProjectUseCases(
+    projectRepository
+) 
+
 export const emailTemplateUseCases = new EmailTemplateUseCases (
     emailTemplateRepository,
     Queues

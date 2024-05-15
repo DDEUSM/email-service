@@ -13,24 +13,16 @@ export class EmailRepository implements IEmailRepository
 
     async save(email: Email): Promise<void> 
     {   
-        const adaptedEmail = EmailAdapter.toDatabase(email)             
-        const adaptedEmailValues = Object.values(adaptedEmail)
-        const query = GenerateQuery.insert("emails", adaptedEmail)
-        await this.dbConnection.query(query, adaptedEmailValues)        
+            
     }
 
     async getEmailById(emailId: string): Promise<EmailDtoExtern | null> 
     {
-        const query = `SELECT * FROM emails WHERE email_id = $1`
-        return await this.dbConnection.one(query, [emailId])
-        .then(email => email? EmailAdapter.toApplication(email) : null)
+       return
     }
-
+''
     async deleteEmail(emailId: string): Promise<EmailDtoExtern | null>
     {
-        const foundedEmail = await this.getEmailById(emailId)
-        const query = `DELETE FROM emails WHERE email_id = $1`
-        await this.dbConnection.one(query, [emailId])
-        return foundedEmail
+       return
     }
 }

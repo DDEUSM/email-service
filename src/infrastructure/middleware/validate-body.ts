@@ -1,5 +1,5 @@
 import { EmailDtoIntern } from "../dtos/email-dto";
-import { EmailTemplateDtoIntern } from "../dtos/email-template";
+import { InEmailTemplateDto } from "../dtos/email-template";
 import { UserDtoIntern } from "../dtos/user-dto";
 import { ApiError } from "../server/http-server/api-error";
 
@@ -43,7 +43,7 @@ export class ValidateBody
         const { ownerId, title, subject, html } = req.body
         try 
         {
-            req.emailTemplateDto = new EmailTemplateDtoIntern (
+            req.emailTemplateDto = new InEmailTemplateDto (
                 ownerId,
                 title,
                 subject,

@@ -33,7 +33,7 @@ CREATE TABLE "projects" (
   "client_host" VARCHAR(50),
   "owner_id" CHAR(36),
   "title" VARCHAR(75),
-  "public" BOOLEAN,
+  "visibility" VARCHAR(7) NOT NULL,
   "created_at" DATE DEFAULT NOW()
 );
 
@@ -95,6 +95,8 @@ CREATE TABLE "campaignrepositories" (
 
 ALTER TABLE "projects" ADD FOREIGN KEY ("owner_id") REFERENCES "users" ("id");
 
+ALTER TABLE "projects" ADD CONSTRAINT "visibility_constraint" CHECK ("visibility" = 'public' OR "visibility" = 'private'); 
+
 ALTER TABLE "contexts" ADD FOREIGN KEY ("project_id") REFERENCES "projects" ("id");
 
 ALTER TABLE "users" ADD FOREIGN KEY ("team_id") REFERENCES "teams" ("id");
@@ -124,6 +126,7 @@ ALTER TABLE "campaignrepositories" ADD FOREIGN KEY ("repository_id") REFERENCES 
 ALTER TABLE "campaignrepositories" ADD FOREIGN KEY ("campaign_id") REFERENCES "campaign" ("id");
 
 
+
 INSERT INTO roles (id, title) 
 VALUES (
   'e5f9e696-4059-467d-8e96-4c3f91ec1258',
@@ -140,6 +143,17 @@ VALUES (
   '2rggt4tthhlkkkkj'
 );
 
+INSERT INTO users (id, role_id, first_name, last_name, email, password_hash) 
+VALUES (
+  '705a391e-d532-4eed-a0e2-3309c97f4d21',
+  'e5f9e696-4059-467d-8e96-4c3f91ec1258',
+  'Dario',
+  'de Deus',
+  'dario@live.com',
+  '2rggt4tthhlkkkkj'
+);
+
+
 INSERT INTO teams (id, owner_id, title) 
 VALUES (
   '3e5fed51-77e0-4ca9-a05b-9c90492ca5eb',
@@ -151,13 +165,13 @@ UPDATE users
 SET team_id = '3e5fed51-77e0-4ca9-a05b-9c90492ca5eb'
 WHERE id = '303a391e-d532-4eed-a0e2-3309c97f4d21';
 
-INSERT INTO projects (id, api_key_hash, client_host, owner_id, title, public) VALUES (
+INSERT INTO projects (id, api_key_hash, client_host, owner_id, title, visibility) VALUES (
   '7e5fed81-77e0-4ca9-a05b-9c90492ca5eb',
   'b0b77de101e00?4d4e%8652%b6527fe4b0d9',
   'http://localhost:3440',
   '303a391e-d532-4eed-a0e2-3309c97f4d21',
   'project 1',
-  TRUE
+  'public'
 );
 
 INSERT INTO emailtemplates (id, project_id, title, subject, html) 
