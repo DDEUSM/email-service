@@ -5,16 +5,16 @@ export class Project
 {
     private constructor (
         readonly id: string,
-        readonly apiKey: string,
         readonly clientHost: string,
+        readonly apiKeyHash: string,
         readonly ownerId: string,
         readonly title: string,
         readonly visibility: Visibility
     ){}
 
     public static createProjectCredentials (
-        apiKey: string, 
         clientHost: string,
+        apiKeyHash: string,
         ownerId: string,
         title: string,
         visibility: Visibility
@@ -22,8 +22,8 @@ export class Project
     {
         return new Project (
             randomUUID(),
-            apiKey,
             clientHost,
+            apiKeyHash,
             ownerId,
             title,
             visibility

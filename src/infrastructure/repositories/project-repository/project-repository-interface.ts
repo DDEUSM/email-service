@@ -14,5 +14,4 @@ export interface IProjectRepository
     update (projectId: string, projectUpdate: any): Promise<void>
 
     delete (projectId: string): Promise<void>
-
 }

@@ -3,7 +3,6 @@ import { Visibility } from "../../domain/enums/project-enum";
 export class InProjectDto 
 {
     constructor (
-        public apiKey: string,
         public clientHost: string,
         public ownerId: string,
         public title: string,
