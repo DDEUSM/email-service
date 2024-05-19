@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { Project } from "../../domain/entities/project";
 import { Visibility } from "../../domain/enums/project-enum";
 import { ProjectSchema } from "../schemas/project";
@@ -12,11 +13,12 @@ type ProjectUpdateObject = {
 
 export class ProjectAdapter extends Adapter
 {
+
     public static entityToDatabase(project: Project): ProjectSchema
     {
         return {
             id: project.id,
-            api_key_hash: project.apiKey,
+            api_key_hash: project.apiKeyHash,
             client_host: project.clientHost,
             owner_id: project.ownerId,
             title: project.title,

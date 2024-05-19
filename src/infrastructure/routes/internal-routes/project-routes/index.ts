@@ -52,7 +52,6 @@ export class ProjectRoutes extends Routes
         async (req: any) => 
         {
             const projectDto = new InProjectDto (
-                req.body.apiKey,
                 req.body.clientHost,
                 req.body.ownerId,
                 req.body.title,

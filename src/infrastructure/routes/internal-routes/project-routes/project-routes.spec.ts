@@ -7,7 +7,6 @@ import { host, port } from "../../../../env"
 describe("Project Routes Integration tests", () => 
 {
     let newProject = {
-        apiKey: 't0b77de101e00?4d4e%8652%b6527fe4b0t9',
         clientHost: "http://localhost:2400",
         ownerId: '705a391e-d532-4eed-a0e2-3309c97f4d21',
         title: 'project test',
