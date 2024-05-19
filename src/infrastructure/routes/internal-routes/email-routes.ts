@@ -13,7 +13,7 @@ export class EmailRoutes extends Routes
 
     initRoutes()
     {
-        this.httpServer.add (
+        this.httpServer.controller (
             "get", "/email/:id", 
             (req, res, next ) => next(),
             async (req: any): Promise<HttpResponse> => 

@@ -9,11 +9,14 @@ export class ContextRoutes extends Routes
     constructor (
         httpServer: IHttpServer,
         public contextUseCase: EmailContextUseCases
-    ){ super(httpServer) }
+    ){ 
+        super(httpServer)
+        this.initRoutes() 
+    }
 
     initRoutes()
     {
-        this.httpServer.add("get", "/email-context/:id", 
+        this.httpServer.controller("get", "/email-context/:id", 
         (req, res, next) => {next()}, 
         async (req: any): Promise<HttpResponse> => {
             const response = await this.contextUseCase.findById(req.params.id)
@@ -30,7 +33,7 @@ export class ContextRoutes extends Routes
             })
         })
 
-        this.httpServer.add("get", "/email-context", 
+        this.httpServer.controller("get", "/email-context", 
         (req, res, next) => {next()},
         async (req: any): Promise<HttpResponse> => 
         {
@@ -42,7 +45,7 @@ export class ContextRoutes extends Routes
             })
         })
 
-        this.httpServer.add("post", "/email-context", 
+        this.httpServer.controller("post", "/email-context", 
         (req, res, next) => {next()}, 
         async (req: any) => {
             const emailContextDto = new InEmailContextDto (
@@ -58,7 +61,7 @@ export class ContextRoutes extends Routes
             })
         })
 
-        this.httpServer.add("put", "/email-context/:id", 
+        this.httpServer.controller("put", "/email-context/:id", 
             (req, res, next) => {next()},
             async (req: any) => 
             {
@@ -69,7 +72,7 @@ export class ContextRoutes extends Routes
             }
         )
 
-        this.httpServer.add("post", "/call-email-context/:id", 
+        this.httpServer.controller("post", "/call-email-context/:id", 
         (req, res, next) => {next()},
             async (req: any) => 
             {
@@ -83,7 +86,7 @@ export class ContextRoutes extends Routes
             }            
         )
 
-        this.httpServer.add("delete", "/email-context/:id", 
+        this.httpServer.controller("delete", "/email-context/:id", 
         (req, res, next) => {next()},
             async (req: any) => 
             {

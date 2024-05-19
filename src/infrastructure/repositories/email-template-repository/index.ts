@@ -37,7 +37,7 @@ export class EmailTemplateRepository implements IEmailTemplateRepository
             null
     }
 
-    async find(emailTemplateQuery: any, offset: number, limit: number): Promise<OutEmailTemplateDto[] | []> 
+    async find(emailTemplateQuery: any, offset: number, limit: number): Promise<OutEmailTemplateDto[]> 
     {
         const adaptedEmailTemplateQuery = EmailTemplateAdapter.queryToDatabase(emailTemplateQuery)
         const query = GenerateQuery.query("emailtemplates", Object.keys(adaptedEmailTemplateQuery), offset, limit)

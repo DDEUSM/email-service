@@ -22,16 +22,13 @@ export const projectRepository = new ProjectRepository(postgresConnection)
 const contextRepository = new ContextRepository(postgresConnection)
 
 export const userUseCases = new UserUseCases(userRepository)
-
 export const emailUseCases = new EmailUseCases (
     emailRepository,
     Queues
 )
-
 export const projectUseCases = new ProjectUseCases(
     projectRepository
 ) 
-
 export const emailTemplateUseCases = new EmailTemplateUseCases (
     emailTemplateRepository,
     Queues

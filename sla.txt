@@ -1,3 +1,0 @@
-git add src/infrastructure/dtos/context-dto.ts
-git add src/infrastructure/repositories/context-repository/context-repository-interface.ts
-git add src/infrastructure/repositories/context-repository/index.ts

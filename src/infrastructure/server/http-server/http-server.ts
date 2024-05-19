@@ -1,7 +1,6 @@
 import { IHttpServer } from "./http-server-interface"
 import express, { Request, Response, NextFunction } from 'express'
 import { httpMethodTypes } from "./types"
-import { HttpResponse } from "./http-response"
 
 export class ExpressHttpServer implements IHttpServer
 {
@@ -10,7 +9,7 @@ export class ExpressHttpServer implements IHttpServer
         this.httpServer.use(express.json())        
     }
 
-    add (httpMethod: httpMethodTypes, uri: string, middleware: Function, controller: Function)
+    controller (httpMethod: httpMethodTypes, uri: string, middleware: Function, controller: Function)
     {
         const params = [uri, middleware].filter(param => param)
         this.httpServer[httpMethod](...params, async (req: Request, res: Response, next: NextFunction) => {
