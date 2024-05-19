@@ -10,11 +10,14 @@ export class ProjectRoutes extends Routes
     constructor (
         httpServer: IHttpServer,
         public projectUseCases: ProjectUseCases
-    ){ super(httpServer) }
+    ){ 
+        super(httpServer)
+        this.initRoutes() 
+    }
 
     initRoutes()
     {
-        this.httpServer.add("get", "/projects/:id", 
+        this.httpServer.controller("get", "/projects/:id", 
         (req, res, next) => {next()}, 
         async (req: any): Promise<HttpResponse> => 
         {
@@ -32,7 +35,7 @@ export class ProjectRoutes extends Routes
                 })
         })
 
-        this.httpServer.add("get", "/projects", 
+        this.httpServer.controller("get", "/projects", 
         (req, res, next) => {next()},
         async (req: any): Promise<HttpResponse> => 
         {
@@ -44,7 +47,7 @@ export class ProjectRoutes extends Routes
             })
         })
 
-        this.httpServer.add("post", "/projects", 
+        this.httpServer.controller("post", "/projects", 
         (req, res, next) => {next()}, 
         async (req: any) => 
         {
@@ -62,7 +65,7 @@ export class ProjectRoutes extends Routes
             })
         })
 
-        this.httpServer.add("put", "/projects/:id", 
+        this.httpServer.controller("put", "/projects/:id", 
         (req, res, next) => {next()},
         async (req: any) => 
         {
@@ -72,7 +75,7 @@ export class ProjectRoutes extends Routes
             })
         })
 
-        this.httpServer.add("delete", "/projects/:id", 
+        this.httpServer.controller("delete", "/projects/:id", 
         (req, res, next) => {next()},
         async (req: any) => 
         {

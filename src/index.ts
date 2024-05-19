@@ -1,23 +1,17 @@
-import { ExpressHttpServer } from './infrastructure/server/http-server'
+import { ExpressHttpServer } from './infrastructure/server/http-server/http-server'
 import { host, port } from './env'
 import express from "express"
 import { ErrorHandler } from './infrastructure/middleware/error-handler'
-import { contextUseCases, projectUseCases } from './init-connections'
-import { ProjectAuthHandler } from './infrastructure/middleware/auth-handler'
-import { ProjectRepository } from './infrastructure/repositories/project-repository'
+import { contextUseCases, emailTemplateUseCases, projectUseCases } from './init-connections'
 import { ContextRoutes } from './infrastructure/routes/internal-routes/email-context-routes/context-routes'
 import { ProjectRoutes } from './infrastructure/routes/internal-routes/project-routes'
+import { EmailTemplateRoutes } from './infrastructure/routes/internal-routes/email-template-routes/email-template-routes'
 
 const httpServer = new ExpressHttpServer(express())
 
 const contextRoutes = new ContextRoutes(httpServer, contextUseCases)
 const projectRoutes = new ProjectRoutes(httpServer, projectUseCases)
-
-contextRoutes.initRoutes()
-projectRoutes.initRoutes()
-
-
-//ProjectAuthHandler.config(projectRepository)
+const emailTemplateRoutes = new EmailTemplateRoutes(httpServer,emailTemplateUseCases)
 
 httpServer.middleware(ErrorHandler.handler)
 

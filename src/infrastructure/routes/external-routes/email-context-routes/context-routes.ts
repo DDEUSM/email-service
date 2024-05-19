@@ -13,7 +13,7 @@ export class ExternalServiceRoutes extends Routes
 
     initRoutes()
     {
-        this.httpServer.add("post", "/call-email-context/:id", 
+        this.httpServer.controller("post", "/call-email-context/:id", 
         ProjectAuthHandler.projectAuth,
             async (req: any) => 
             {
